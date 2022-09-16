@@ -67,3 +67,37 @@ func TestOptionalMap(t *testing.T) {
 		t.Error("failed to get copied map value")
 	}
 }
+
+func TestFromToPtr(t *testing.T) {
+	var i *int
+	none := FromPtr(i)
+
+	v := 10
+	i = &v
+	ten := FromPtr(i)
+
+	if none.Is() {
+		t.Error("wrong value for Is")
+	}
+	if !ten.Is() {
+		t.Error("wrong value for Is")
+	}
+
+	if none.Get() != 0 {
+		t.Error("should get zero")
+	}
+	if ten.Get() != 10 {
+		t.Error("should get ten")
+	}
+
+	if none.ToPtr() != nil {
+		t.Error("pointer should be nil")
+	}
+	tenPtr := ten.ToPtr()
+	if tenPtr == nil || *tenPtr != 10 {
+		t.Error("should get pointer to ten")
+	}
+	if tenPtr == i {
+		t.Error("pointer should not be copied")
+	}
+}
