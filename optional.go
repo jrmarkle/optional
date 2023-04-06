@@ -20,18 +20,18 @@ func FromPtr[T any](ptr *T) Optional[T] {
 	return Some(*ptr)
 }
 
-func (o *Optional[T]) ToPtr() *T {
+func (o Optional[T]) ToPtr() *T {
 	if o.valid {
 		return &o.value
 	}
 	return nil
 }
 
-func (o *Optional[T]) Is() bool {
+func (o Optional[T]) Is() bool {
 	return o.valid
 }
 
-func (o *Optional[T]) Get() T {
+func (o Optional[T]) Get() T {
 	if o.valid {
 		return o.value
 	}
@@ -39,7 +39,7 @@ func (o *Optional[T]) Get() T {
 	return zeroValue
 }
 
-func (o *Optional[T]) GetOr(defaultValue T) T {
+func (o Optional[T]) GetOr(defaultValue T) T {
 	if o.valid {
 		return o.value
 	}
